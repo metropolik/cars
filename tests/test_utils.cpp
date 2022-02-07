@@ -14,8 +14,8 @@ bool test() {
 
     ASSERT_EQUAL(split_string_by_space(ss1).size(), 3);
     ASSERT_EQUAL(split_string_by_space(ss2).size(), 2);
-    ASSERT_TRUE(split_string_by(graph_txt, ", ").size(), 9);
-    ASSERT_TRUE(split_string_by(graph_txt, ", ").size(), 9);
+    ASSERT_EQUAL(split_string_by(graph_txt, ", ").size(), 9);
+    ASSERT_EQUAL(split_string_by(graph_txt, ", ").size(), 9);
 
     TEST_END();
 }
