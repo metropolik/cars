@@ -1,12 +1,12 @@
 # Coding Challenge: Cars by Hannes Möls
 
-This C++ implementation solves the car coding challenge. It is build with CMake and should compile on every platform. It contains an command-processor/interpreter which can be used to either process commands entered in interactive mode or commands in a file.
+This C++ implementation solves the car coding challenge. It is build with CMake and should compile on every platform. It contains a command-processor/interpreter which can be used to either process commands entered in interactive mode or commands in a file.
 The interpreter support seven commands which reflect the five different problem types in the exercise.
 
 ## Usage
 To input a graph the command
 ```
-GRAPH <Node List in the format "AB1, BA2"
+GRAPH <Node List in the format "AB1, BA2">
 ```
 is used.
 
@@ -87,7 +87,7 @@ Goodbye!
 ```
 
 ## Building on command line
-Compilation is done with git, cmake and a compiler of your choice e.g., gcc, visual studio. Please make sure to use one of the latest versions of cmake, though older versions will probably work fine too.
+Building is done with git, cmake and a compiler of your choice e.g., gcc, visual studio. Please make sure to use one of the latest versions of cmake, though older versions will probably work fine too.
 CMake can be downloaded from: [https://cmake.org/](https://cmake.org/)
 1. Clone the repo
 ```
@@ -106,14 +106,14 @@ Even when not specifying a compiler cmake should pick a suitable one.
 ```
 cmake --build build
 ```
-This creates the interpreter executable and the tests. 
+This creates the interpreter executable and the tests. On Windows the executable is then located in `build/Debug/Cars.exe`. It does not have any dependencies and can be copied or moved anywhere.
 
 ## Testing
 The tests are individual executables which get compiled automatically, too. Each test is a group of certain tests. All tests can be launched and tested with
 ```
 cmake -E env CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --target RUN_TESTS
 ```
-To execute this test you need to be in the parent directory of build. If you followed the previous section, you already are.
+To execute this command you need to be in the parent directory of build. If you followed the previous section, you already are.
 Output of this command on windows looks like:
 ```
 Microsoft (R) Build Engine version 16.7.0+b89cb5fde for .NET Framework   
@@ -143,14 +143,14 @@ The project is structured into five classes plus main function and tests.
 * `command_processor` implements the interactive interpreter and the processing of commands in files.
 * `directed_graph` implements the base of an directed graph and primitive functions as well as the `DIST` command backbone. The graph is stored as an adjacency list.
 * `depth_first_search` implements a variety of the depth first search graph algorithms which are used for the `TRIP_MAX_STOPS`, `TRIP_EQUAL_STOPS` and `TRIP_MAX_DIST` commands. As an argument it requires a directed graph on which it works.
-* `dijkstra` implements a variation of dijkstra's path finding algorithm, required for the `SHORT` command i.e. the 8. and 9. problem.
+* `dijkstra` implements a variation of dijkstra's path finding algorithm, required for the `SHORT` command i.e. the 8. and 9. problem. It requires a graph as an argument when instantiating.
 * `utils` provides an implementation for string splitting.
 
 The problems only require the number of possible paths or only their length. The paths/routes themselves are not required. However, they could be easily accessed with some small modifactions, as the actual paths are intermediate result.
 The backbone for all graph processing commands discard the intermediate results and only the required values are printed on the terminal.
 
 ### Tests
-There are six test executables which test the example of the exercise sheet as well as edge cases.
+There are six test executables which test the example of the exercise sheet as well as edge cases. The executables of the tests can also be execute manually and will return a negative value on failure. When executing manually, the output is not hidden like when launching via cmake.
 
 ## Problem Assumption
 1. Edge weights/length are at least 1 or larger. As cycles are allowed, negative weights or 0 weights can lead to 0-weighted-cycles or even negative-weighted-cycles which would interfere with the logic of the algorithms for the 'TRIP_MAX_DIST' and 'SHORT' commands.
